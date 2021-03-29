@@ -12,6 +12,7 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.4",
+        "mhmiton/laravel-modules-livewire": "^1.1",
         "nwidart/laravel-modules": "^8.2"
     },
     "require-dev": {
@@ -25,6 +26,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
+            "Modules\\": "modules/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }
