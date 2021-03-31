@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "21eeef4027ea908e1ba87dbf1af67170",
+    "content-hash": "44af9d355a291dcdd164beb53fb943e7",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -894,17 +894,79 @@
             "time": "2021-03-21T16:25:00+00:00"
         },
         {
-            "name": "laravel/framework",
-            "version": "v8.34.0",
+            "name": "hassankhan/config",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/laravel/framework.git",
-                "reference": "81892ca110795a9c46c7e198cba7763bfd2af0bf"
+                "url": "https://github.com/hassankhan/config.git",
+                "reference": "62b0fd17540136efa94ab6b39f04044c6dc5e4a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/81892ca110795a9c46c7e198cba7763bfd2af0bf",
-                "reference": "81892ca110795a9c46c7e198cba7763bfd2af0bf",
+                "url": "https://api.github.com/repos/hassankhan/config/zipball/62b0fd17540136efa94ab6b39f04044c6dc5e4a7",
+                "reference": "62b0fd17540136efa94ab6b39f04044c6dc5e4a7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.8.36 || ~5.7 || ~6.5 || ~7.5",
+                "scrutinizer/ocular": "~1.1",
+                "squizlabs/php_codesniffer": "~2.2",
+                "symfony/yaml": "~3.4"
+            },
+            "suggest": {
+                "symfony/yaml": "~3.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Noodlehaus\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Hassan Khan",
+                    "homepage": "http://hassankhan.me/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Lightweight configuration file loader that supports PHP, INI, XML, JSON, and YAML files",
+            "homepage": "http://hassankhan.me/config/",
+            "keywords": [
+                "config",
+                "configuration",
+                "ini",
+                "json",
+                "microphp",
+                "unframework",
+                "xml",
+                "yaml",
+                "yml"
+            ],
+            "support": {
+                "issues": "https://github.com/hassankhan/config/issues",
+                "source": "https://github.com/hassankhan/config/tree/2.2.0"
+            },
+            "time": "2020-12-07T16:04:15+00:00"
+        },
+        {
+            "name": "laravel/framework",
+            "version": "v8.35.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/framework.git",
+                "reference": "d118c0df39e7524131176aaf76493eae63a8a602"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/d118c0df39e7524131176aaf76493eae63a8a602",
+                "reference": "d118c0df39e7524131176aaf76493eae63a8a602",
                 "shasum": ""
             },
             "require": {
@@ -1059,7 +1121,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-03-23T15:12:51+00:00"
+            "time": "2021-03-30T21:34:17+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -2564,6 +2626,81 @@
                 }
             ],
             "time": "2020-08-18T17:17:46+00:00"
+        },
+        {
+            "name": "shipu/themevel",
+            "version": "v2.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Shipu/themevel.git",
+                "reference": "ebf7b1d4e74bc3b1682fa7d892129100a95ac404"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Shipu/themevel/zipball/ebf7b1d4e74bc3b1682fa7d892129100a95ac404",
+                "reference": "ebf7b1d4e74bc3b1682fa7d892129100a95ac404",
+                "shasum": ""
+            },
+            "require": {
+                "hassankhan/config": "^2.1",
+                "symfony/yaml": "5.1.x-dev"
+            },
+            "require-dev": {
+                "graham-campbell/testbench": "^3.3",
+                "phpunit/phpunit": "^5.0"
+            },
+            "suggest": {
+                "symfony/yaml": "Allows for parsing of YAML theme info and change log files"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Shipu\\Themevel\\Providers\\ThemevelServiceProvider"
+                    ],
+                    "aliases": {
+                        "Theme": "Shipu\\Themevel\\Facades\\Theme"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Shipu\\Themevel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "CC-BY-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Shipu Ahamed",
+                    "email": "shipuahamed01@gmail.com"
+                }
+            ],
+            "description": "Theme and asset management for laravel 5",
+            "homepage": "https://github.com/shipu/themevel",
+            "keywords": [
+                "asset",
+                "child-theme",
+                "laravel",
+                "lumen",
+                "management",
+                "multi",
+                "theme",
+                "themevel"
+            ],
+            "support": {
+                "issues": "https://github.com/Shipu/themevel/issues",
+                "source": "https://github.com/Shipu/themevel/tree/v2.2.2"
+            },
+            "funding": [
+                {
+                    "url": "https://beerpay.io/Shipu/themevel",
+                    "type": "custom"
+                }
+            ],
+            "time": "2020-05-09T15:57:57+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4813,6 +4950,81 @@
             "time": "2021-03-28T09:42:18+00:00"
         },
         {
+            "name": "symfony/yaml",
+            "version": "5.1.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "6bb8b36c6dea8100268512bf46e858c8eb5c545e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/6bb8b36c6dea8100268512bf46e858c8eb5c545e",
+                "reference": "6bb8b36c6dea8100268512bf46e858c8eb5c545e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/deprecation-contracts": "^2.1",
+                "symfony/polyfill-ctype": "~1.8"
+            },
+            "conflict": {
+                "symfony/console": "<4.4"
+            },
+            "require-dev": {
+                "symfony/console": "^4.4|^5.0"
+            },
+            "suggest": {
+                "symfony/console": "For validating YAML files using the lint command"
+            },
+            "bin": [
+                "Resources/bin/yaml-lint"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Yaml\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Loads and dumps YAML files",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/yaml/tree/v5.1.11"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-01-27T10:01:46+00:00"
+        },
+        {
             "name": "tijsverkoyen/css-to-inline-styles",
             "version": "2.2.3",
             "source": {
@@ -5215,16 +5427,16 @@
         },
         {
             "name": "facade/ignition",
-            "version": "2.6.0",
+            "version": "2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "4be10a998815f77952b9eb983fb0b64c8a4defbb"
+                "reference": "bdc8b0b32c888f6edc838ca641358322b3d9506d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/4be10a998815f77952b9eb983fb0b64c8a4defbb",
-                "reference": "4be10a998815f77952b9eb983fb0b64c8a4defbb",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/bdc8b0b32c888f6edc838ca641358322b3d9506d",
+                "reference": "bdc8b0b32c888f6edc838ca641358322b3d9506d",
                 "shasum": ""
             },
             "require": {
@@ -5288,7 +5500,7 @@
                 "issues": "https://github.com/facade/ignition/issues",
                 "source": "https://github.com/facade/ignition"
             },
-            "time": "2021-03-24T18:58:31+00:00"
+            "time": "2021-03-30T15:55:38+00:00"
         },
         {
             "name": "facade/ignition-contracts",
@@ -5345,16 +5557,16 @@
         },
         {
             "name": "fakerphp/faker",
-            "version": "v1.14.0",
+            "version": "v1.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FakerPHP/Faker.git",
-                "reference": "cd46398f42c2ab191ffb0b57c07e911c7c28eb25"
+                "reference": "ed22aee8d17c7b396f74a58b1e7fefa4f90d5ef1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/cd46398f42c2ab191ffb0b57c07e911c7c28eb25",
-                "reference": "cd46398f42c2ab191ffb0b57c07e911c7c28eb25",
+                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/ed22aee8d17c7b396f74a58b1e7fefa4f90d5ef1",
+                "reference": "ed22aee8d17c7b396f74a58b1e7fefa4f90d5ef1",
                 "shasum": ""
             },
             "require": {
@@ -5377,6 +5589,11 @@
                 "ext-mbstring": "Required for multibyte Unicode string functionality."
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "v1.15-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Faker\\": "src/Faker/"
@@ -5399,22 +5616,22 @@
             ],
             "support": {
                 "issues": "https://github.com/FakerPHP/Faker/issues",
-                "source": "https://github.com/FakerPHP/Faker/tree/v1.14.0"
+                "source": "https://github.com/FakerPHP/Faker/tree/v.1.14.1"
             },
-            "time": "2021-03-29T08:56:34+00:00"
+            "time": "2021-03-30T06:27:33+00:00"
         },
         {
             "name": "filp/whoops",
-            "version": "2.11.0",
+            "version": "2.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "f6e14679f948d8a5cfb866fa7065a30c66bd64d3"
+                "reference": "d501fd2658d55491a2295ff600ae5978eaad7403"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/f6e14679f948d8a5cfb866fa7065a30c66bd64d3",
-                "reference": "f6e14679f948d8a5cfb866fa7065a30c66bd64d3",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/d501fd2658d55491a2295ff600ae5978eaad7403",
+                "reference": "d501fd2658d55491a2295ff600ae5978eaad7403",
                 "shasum": ""
             },
             "require": {
@@ -5464,7 +5681,7 @@
             ],
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.11.0"
+                "source": "https://github.com/filp/whoops/tree/2.12.0"
             },
             "funding": [
                 {
@@ -5472,7 +5689,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-03-19T12:00:00+00:00"
+            "time": "2021-03-30T12:00:00+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -5527,16 +5744,16 @@
         },
         {
             "name": "laravel/sail",
-            "version": "v1.4.9",
+            "version": "v1.4.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "935b453bf536b284d6fef7c1b5dd2ea52bca34c0"
+                "reference": "4f0b2bac128ee60a11d9758651f103f78157474a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/935b453bf536b284d6fef7c1b5dd2ea52bca34c0",
-                "reference": "935b453bf536b284d6fef7c1b5dd2ea52bca34c0",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/4f0b2bac128ee60a11d9758651f103f78157474a",
+                "reference": "4f0b2bac128ee60a11d9758651f103f78157474a",
                 "shasum": ""
             },
             "require": {
@@ -5583,7 +5800,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2021-03-23T17:29:26+00:00"
+            "time": "2021-03-30T21:26:44+00:00"
         },
         {
             "name": "mockery/mockery",

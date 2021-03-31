@@ -13,7 +13,8 @@
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.4",
         "mhmiton/laravel-modules-livewire": "^1.1",
-        "nwidart/laravel-modules": "^8.2"
+        "nwidart/laravel-modules": "^8.2",
+        "shipu/themevel": "^2.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

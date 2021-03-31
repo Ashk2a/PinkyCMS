@@ -3,15 +3,33 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Location where your themes are located
+    | Check if asgard was installed
     |--------------------------------------------------------------------------
     */
-    'themes_path' => base_path() . '/themes',
+    'is_installed' => env('INSTALLED', false),
+
+    /*
+   |--------------------------------------------------------------------------
+   | The prefix that'll be used for the administration
+   |--------------------------------------------------------------------------
+   */
+    'admin-url-prefix' => 'admin',
 
     /*
     |--------------------------------------------------------------------------
-    | The current active theme
+    | Middleware
     |--------------------------------------------------------------------------
+    | You can customise the Middleware that should be loaded.
+    | The localizationRedirect middleware is automatically loaded for both
+    | Backend and Frontend routes.
     */
-    'current_theme' => 'Wowlf'
+    'middleware' => [
+        'admin' => [
+            'auth.admin',
+        ],
+        'public' => [],
+        'api' => [
+            'api',
+        ],
+    ]
 ];
