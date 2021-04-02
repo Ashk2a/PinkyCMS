@@ -3,6 +3,7 @@
 namespace Modules\Core\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\File;
 use Shipu\Themevel\Middleware\RouteMiddleware;
 
 class ThemeMiddleware extends RouteMiddleware
@@ -12,6 +13,8 @@ class ThemeMiddleware extends RouteMiddleware
         $themeName = (null === $themeName) ? config('theme.active') : $themeName;
 
         if (null !== $themeName) {
+            $this->publishThemeConfigs($themeName);
+
             foreach (modules()->getOrdered() as $module) {
                 /**
                  * Order priority for resources selection :
@@ -28,5 +31,22 @@ class ThemeMiddleware extends RouteMiddleware
         }
 
         return parent::handle($request, $next, $themeName);
+    }
+
+    private function publishThemeConfigs(string $themeName) {
+        $themeInfo = themevel()->get($themeName);
+
+        $configPath = ($themeInfo['path'] ?? theme_path('')). '/config';
+
+        if (is_dir($configPath)) {
+            $configFiles = File::allFiles($configPath);
+
+            foreach ($configFiles as $configFile) {
+                if ($configFile->isFile() && $configFile->getExtension() === 'php') {
+                    $fileName = $configFile->getFilenameWithoutExtension();
+                    config()->set('current_theme' . '.' . $fileName, require $configFile->getRealPath());
+                }
+            }
+        }
     }
 }
