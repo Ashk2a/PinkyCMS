@@ -2,7 +2,7 @@
 
 namespace Modules\Core\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 
 abstract class BaseController extends Controller
 {

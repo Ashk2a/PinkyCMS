@@ -707,8 +707,7 @@
 
 									<!--begin::Dropdown-->
 									<div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right">
-
-										<!--[html-partial:include:{"file":"partials/_extras/dropdown/languages.html"}]/-->
+										@include('partials/_extras/dropdown/languages')
 									</div>
 
 									<!--end::Dropdown-->

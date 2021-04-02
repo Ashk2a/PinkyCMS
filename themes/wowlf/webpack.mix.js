@@ -7,7 +7,7 @@ const rimraf = require('rimraf');
 const tasks = (process.env.TASKS === undefined) ? [] : process.env.TASKS.split(',');
 
 let hasTask = (taskName) => {
-    return (tasks.length === 1 && tasks.includes('')) || tasks.includes(taskName);
+    return (tasks.length === 1 && tasks.includes('')) || tasks.length === 0 || tasks.includes(taskName);
 };
 
 /*
@@ -21,22 +21,14 @@ let hasTask = (taskName) => {
  |
  */
 
+
 mix
     .options({
         processCssUrls: false,
     })
     .webpackConfig({
         devtool: 'inline-source-map'
-    }).sourceMaps()
-
-// Metronic css/js
-if (hasTask('metronic')) {
-    mix.sass('resources/metronic/sass/style.scss', 'assets/css/style.bundle.css', {
-        sassOptions: {includePaths: ['node_modules']},
-    })
-        // .options({processCssUrls: false})
-        .js('resources/js/scripts.js', 'assets/js/scripts.bundle.js');
-}
+    }).sourceMaps();
 
 // 3rd party plugins css/js
 if (hasTask('plugins')) {
@@ -46,42 +38,51 @@ if (hasTask('plugins')) {
         });
         rimraf(path.resolve('assets/images'), () => {
         });
-    })
+    }).sourceMaps(!mix.inProduction())
         // .setResourceRoot('./')
         .options({processCssUrls: false}).js(['resources/plugins/plugins.js'], 'assets/plugins/global/plugins.bundle.js');
 }
 
-// Custom 3rd party plugins
+if (hasTask('metronic')) {
+    // Metronic css/js
+    mix.sass('resources/metronic/sass/style.scss', 'assets/css/style.bundle.css', {
+        sassOptions: {includePaths: ['node_modules']},
+    })
+        // .options({processCssUrls: false})
+        .js('resources/js/scripts.js', 'assets/js/scripts.bundle.js');
+}
+
 if (hasTask('plugins')) {
-    (glob.sync('resources/plugins/custom/!**!/!*.js') || []).forEach(file => {
+    // Custom 3rd party plugins
+    (glob.sync('resources/plugins/custom/**/*.js') || []).forEach(file => {
         mix.js(file, `assets/${file.replace('resources/', '').replace('.js', '.bundle.js')}`);
     });
-    (glob.sync('resources/plugins/custom/!**!/!*.scss') || []).forEach(file => {
+    (glob.sync('resources/plugins/custom/**/*.scss') || []).forEach(file => {
         mix.sass(file, `assets/${file.replace('resources/', '').replace('.scss', '.bundle.css')}`);
     });
 }
 
-// Metronic css pages (single page use)
 if (hasTask('pages')) {
-    (glob.sync('resources/metronic/sass/pages/!**!/!(_)*.scss') || []).forEach(file => {
+    // Metronic css pages (single page use)
+    (glob.sync('resources/metronic/sass/pages/**/!(_)*.scss') || []).forEach(file => {
         file = file.replace(/[\\\/]+/g, '/');
         mix.sass(file, file.replace('resources/metronic/sass', 'assets/css').replace(/\.scss$/, '.css'));
     });
 
     // Metronic js pages (single page use)
-    (glob.sync('resources/metronic/js/pages/!**!/!*.js') || []).forEach(file => {
+    (glob.sync('resources/metronic/js/pages/**/*.js') || []).forEach(file => {
         mix.js(file, `assets/${file.replace('resources/metronic/', '')}`);
     });
 }
 
-// Metronic media
 if (hasTask('medias')) {
+    // Metronic media
     mix.copyDirectory('resources/metronic/media', 'assets/media');
 }
 
-// Metronic theme
-if (hasTask('theme')) {
-    (glob.sync('resources/metronic/sass/themes/!**!/!(_)*.scss') || []).forEach(file => {
+if (hasTask('themes')) {
+    // Metronic theme
+    (glob.sync('resources/metronic/sass/themes/**/!(_)*.scss') || []).forEach(file => {
         file = file.replace(/[\\\/]+/g, '/');
         mix.sass(file, file.replace('resources/metronic/sass', 'assets/css').replace(/\.scss$/, '.css'));
     });
@@ -131,22 +132,18 @@ if (hasTask('plugins')) {
             ]),
         ],
     });
-}
 
 // Webpack.mix does not copy fonts, manually copy
-if (hasTask('plugins')) {
-    (glob.sync('resources/metronic/plugins/!**!/!*.+(woff|woff2|eot|ttf)') || []).forEach(file => {
+    (glob.sync('resources/metronic/plugins/**/*.+(woff|woff2|eot|ttf)') || []).forEach(file => {
         var folder = file.match(/resources\/metronic\/plugins\/(.*?)\//)[1];
         mix.copy(file, `assets/plugins/global/fonts/${folder}/${path.basename(file)}`);
     });
-    (glob.sync('node_modules/+(@fortawesome|socicon|line-awesome)/!**!/!*.+(woff|woff2|eot|ttf)') || []).forEach(file => {
+    (glob.sync('node_modules/+(@fortawesome|socicon|line-awesome)/**/*.+(woff|woff2|eot|ttf)') || []).forEach(file => {
         var folder = file.match(/node_modules\/(.*?)\//)[1];
         mix.copy(file, `assets/plugins/global/fonts/${folder}/${path.basename(file)}`);
     });
-}
 
 // Optional: Import datatables.net
-if (hasTask('vendors')) {
     mix.scripts([
         'node_modules/datatables.net/js/jquery.dataTables.js',
         'node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js',
