@@ -24,9 +24,7 @@ return [
     | Backend and Frontend routes.
     */
     'middleware' => [
-        'admin' => [
-            'auth.admin',
-        ],
+        'admin' => [],
         'public' => [],
         'api' => [
             'api',
