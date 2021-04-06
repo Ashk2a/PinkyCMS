@@ -10,10 +10,10 @@ use Modules\User\Http\Controllers\Web\AuthController;
 $router->group(['prefix' => 'auth'], function (Router $router) {
     // Login
     $router->get('login', [AuthController::class, 'getLogin'])->name('auth.login');
-    $router->post('login', [AuthController::class, 'login'])->name('auth.login');
+    $router->post('login', [AuthController::class, 'postLogin'])->name('auth.login');
     // Register
     $router->get('register', [AuthController::class, 'getRegister'])->name('auth.register');
-    $router->post('register', [AuthController::class, 'register'])->name('auth.register');
+    $router->post('register', [AuthController::class, 'postRegister'])->name('auth.register');
     // Forgot password
-    $router->post('forgot', [AuthController::class, 'forgotPassword']);
+    $router->post('forgot', [AuthController::class, 'postForgotPassword']);
 });

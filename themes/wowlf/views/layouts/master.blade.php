@@ -45,6 +45,9 @@
             <!--begin::Content-->
             <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
                 @include('partials/_subheader/subheader-v1')
+
+                @include('partials/_flash');
+
                 @yield('content')
             </div>
             <!--end::Content-->

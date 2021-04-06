@@ -1,5 +1,4 @@
 {
     "Core": true,
-    "User": true,
-    "Admin": true
+    "User": true
 }

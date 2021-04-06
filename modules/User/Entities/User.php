@@ -2,13 +2,15 @@
 
 namespace Modules\User\Entities;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Cartalyst\Sentinel\Users\EloquentUser;
+use Cartalyst\Sentinel\Users\UserInterface;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 
-class User extends Authenticatable
+class User extends EloquentUser implements UserInterface, AuthenticatableContract
 {
-    use HasFactory, Notifiable;
+    use Authenticatable, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -16,8 +18,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'pseudo',
         'email',
+        'username',
         'password',
     ];
 
