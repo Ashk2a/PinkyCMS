@@ -18,6 +18,7 @@
         "livewire/livewire": "^2.4",
         "mhmiton/laravel-modules-livewire": "^1.1",
         "nwidart/laravel-modules": "^8.2",
+        "protonemedia/laravel-form-components": "^2.5",
         "shipu/themevel": "^2.2"
     },
     "require-dev": {

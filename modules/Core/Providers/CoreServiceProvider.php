@@ -5,6 +5,7 @@ namespace Modules\Core\Providers;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Modules\Core\Services\FormDataBinder;
 use Modules\Core\Traits\CanPublishConfiguration;
 use Nwidart\Modules\Module;
 
@@ -40,19 +41,8 @@ class CoreServiceProvider extends ServiceProvider
 
             return Str::contains($url, config('wowlf.core.core.admin-url-prefix'));
         });
-    }
 
-    public function provides(): array
-    {
-        return [];
-    }
-
-    private function registerModulesResourcesNamespaces(): void
-    {
-        foreach (modules()->getOrdered() as $module) {
-            $this->registerViewNamespace($module);
-            $this->registerLanguageNamespace($module);
-        }
+        $this->app->singleton(FormDataBinder::class, fn () => new FormDataBinder);
     }
 
     private function registerMiddleware(): void
@@ -62,6 +52,14 @@ class CoreServiceProvider extends ServiceProvider
                 $class = "Modules\\{$module}\\Http\\Middleware\\{$middleware}";
                 router()->aliasMiddleware($name, $class);
             }
+        }
+    }
+
+    private function registerModulesResourcesNamespaces(): void
+    {
+        foreach (modules()->getOrdered() as $module) {
+            $this->registerViewNamespace($module);
+            $this->registerLanguageNamespace($module);
         }
     }
 

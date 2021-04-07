@@ -1,0 +1,45 @@
+<?php
+
+namespace Modules\Core\Components\Form\Traits;
+
+trait HandlesDefaultAndOldValue
+{
+    use HandlesBoundValues;
+
+    /**
+     * @param string $name
+     * @param mixed|null $bind
+     * @param mixed|null $default
+     * @param string|null $language
+     * @return void
+     */
+    private function setValue(
+        string $name,
+        mixed $bind = null,
+        mixed $default = null,
+        string $language = null
+    ): void
+    {
+        if ($this->isWired()) {
+            return;
+        }
+
+        $inputName = static::convertBracketsToDots($name);
+
+        if (!$language) {
+            $default = $this->getBoundValue($bind, $name) ?: $default;
+            $this->value = old($inputName, $default);
+            return;
+        }
+
+        if ($bind !== false) {
+            $bind = $bind ?: $this->getBoundTarget();
+        }
+
+        if ($bind) {
+            $default = $bind->getTranslation($name, $language, false) ?: $default;
+        }
+
+        $this->value = old("{$inputName}.{$language}", $default);
+    }
+}
