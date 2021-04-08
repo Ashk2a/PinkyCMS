@@ -44,7 +44,7 @@ class AuthController extends BaseWebController
 
         return redirect()
             ->intended(route(config('wowlf.user.config.redirect_route_after_login')))
-            ->with('success', trans('user::user.messages.authentication.success'));
+            ->with('success', trans('user::messages.authentication.success'));
     }
 
     public function getRegister(): Factory|View|Application
@@ -56,7 +56,7 @@ class AuthController extends BaseWebController
     {
         try {
             DB::beginTransaction();
-            $user = sentinel()->register($request->all());
+            $user = sentinel()->registerAndActivate($request->all());
             DB::commit();
         } catch (\InvalidArgumentException $exception) {
             DB::rollBack();

@@ -2,25 +2,77 @@
 
 namespace Modules\Core\Providers;
 
+use Fruitcake\Cors\HandleCors;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Illuminate\Cookie\Middleware\EncryptCookies;
+use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
+use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
+use Illuminate\Http\Middleware\SetCacheHeaders;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\Routing\Middleware\ThrottleRequests;
+use Illuminate\Routing\Middleware\ValidateSignature;
+use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Modules\Core\Http\Middleware\PreventRequestsDuringMaintenance;
+use Modules\Core\Http\Middleware\ThemeBinding;
+use Modules\Core\Http\Middleware\TrimStrings;
+use Modules\Core\Http\Middleware\TrustProxies;
+use Modules\Core\Http\Middleware\VerifyCsrfToken;
 use Modules\Core\Services\FormDataBinder;
 use Modules\Core\Traits\CanPublishConfiguration;
+use Modules\Core\Traits\CanPublishMiddleware;
 use Nwidart\Modules\Module;
 
-class CoreServiceProvider extends ServiceProvider
+class CoreServiceProvider extends ModuleServiceProvider
 {
-    use CanPublishConfiguration;
+    use CanPublishConfiguration, CanPublishMiddleware;
 
     protected string $moduleName = 'Core';
     protected string $moduleNameLower = 'core';
+
     protected array $middleware = [
-        'Core' => [
-            'theme' => 'ThemeMiddleware'
+        TrustProxies::class,
+        HandleCors::class,
+        PreventRequestsDuringMaintenance::class,
+        ValidatePostSize::class,
+        TrimStrings::class,
+        ConvertEmptyStringsToNull::class,
+        SubstituteBindings::class
+    ];
+
+    protected array $routeMiddleware = [
+        // Custom
+        'theme' => ThemeBinding::class,
+        // Builtin
+        'cache.headers' => SetCacheHeaders::class,
+        'signed' => ValidateSignature::class,
+        'throttle' => ThrottleRequests::class,
+    ];
+
+    protected array $middlewareGroups = [
+        'web' => [
+            EncryptCookies::class,
+            AddQueuedCookiesToResponse::class,
+            StartSession::class,
+            ShareErrorsFromSession::class,
+            VerifyCsrfToken::class,
+        ],
+
+        'api' => [
+            'core.throttle:api'
         ]
+    ];
+
+    protected array $middlewarePriority = [
+        StartSession::class,
+        ShareErrorsFromSession::class,
+        ThrottleRequests::class,
+        SubstituteBindings::class,
+        ThemeBinding::class
     ];
 
     public function boot(): void
@@ -46,17 +98,7 @@ class CoreServiceProvider extends ServiceProvider
             return Str::contains($url, config('wowlf.core.core.admin-url-prefix'));
         });
 
-        $this->app->singleton(FormDataBinder::class, fn () => new FormDataBinder);
-    }
-
-    private function registerMiddleware(): void
-    {
-        foreach ($this->middleware as $module => $middlewares) {
-            foreach ($middlewares as $name => $middleware) {
-                $class = "Modules\\{$module}\\Http\\Middleware\\{$middleware}";
-                router()->aliasMiddleware($name, $class);
-            }
-        }
+        $this->app->singleton(FormDataBinder::class, fn() => new FormDataBinder);
     }
 
     private function registerModulesResourcesNamespaces(): void
@@ -67,7 +109,8 @@ class CoreServiceProvider extends ServiceProvider
         }
     }
 
-    private function registerCustomizeBlade() {
+    private function registerCustomizeBlade()
+    {
         // Form components
         Blade::directive('bind', function ($bind) {
             return "<?php app(" . FormDataBinder::class . ")->bind($bind); ?>";
@@ -86,7 +129,7 @@ class CoreServiceProvider extends ServiceProvider
         });
 
         Collection::make(config('wowlf.core.components.components'))->each(
-            fn ($component, $componentName) => Blade::component($componentName, $component['class'])
+            fn($component, $componentName) => Blade::component($componentName, $component['class'])
         );
     }
 

@@ -3,10 +3,10 @@
 namespace Modules\User\Providers;
 
 use Cartalyst\Sentinel\Laravel\SentinelServiceProvider;
-use Illuminate\Support\ServiceProvider;
+use Modules\Core\Providers\ModuleServiceProvider;
 use Modules\Core\Traits\CanPublishConfiguration;
 
-class UserServiceProvider extends ServiceProvider
+class UserServiceProvider extends ModuleServiceProvider
 {
     use CanPublishConfiguration;
 

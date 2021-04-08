@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Support\Facades\File;
 use Shipu\Themevel\Middleware\RouteMiddleware;
 
-class ThemeMiddleware extends RouteMiddleware
+class ThemeBinding extends RouteMiddleware
 {
     public function handle($request, Closure $next, $themeName = null)
     {

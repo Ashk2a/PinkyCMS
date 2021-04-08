@@ -28,7 +28,7 @@ abstract class RoutingServiceProvider extends RouteServiceProvider
 
         $router->group([
             'namespace' => $this->namespace,
-            'middleware' => ['web', 'theme'],
+            'middleware' => ['core.web', 'core.theme'],
         ], function (Router $router) {
             $this->loadPublicRoutes($router);
             $this->loadAdminRoutes($router);
