@@ -10,7 +10,15 @@ class UserServiceProvider extends ServiceProvider
 {
     use CanPublishConfiguration;
 
+    protected string $moduleName = 'User';
+    protected string $moduleNameLower = 'user';
+
     protected array $providers = [
         'Sentinel' => SentinelServiceProvider::class
     ];
+
+    public function boot(): void
+    {
+        $this->publishConfig('config');
+    }
 }

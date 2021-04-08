@@ -26,9 +26,9 @@ trait HandlesDefaultAndOldValue
 
         $inputName = static::convertBracketsToDots($name);
 
-        if (!$language) {
+        if (!$language && !$this->isPasswordType()) {
             $default = $this->getBoundValue($bind, $name) ?: $default;
-            $this->value = old($inputName, $default);
+            $this->value = (!$this->isPasswordType()) ? old($inputName, $default) : '';
             return;
         }
 
@@ -40,6 +40,10 @@ trait HandlesDefaultAndOldValue
             $default = $bind->getTranslation($name, $language, false) ?: $default;
         }
 
-        $this->value = old("{$inputName}.{$language}", $default);
+        $this->value = (!$this->isPasswordType()) ? old("{$inputName}.{$language}", $default) : '';
+    }
+
+    public function isPasswordType(): bool {
+        return $this->type === 'password';
     }
 }

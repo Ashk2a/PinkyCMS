@@ -25,13 +25,13 @@ abstract class BaseFormComponent extends Component
      */
     public function render(): array|View|Htmlable|\Closure|string
     {
-        $alias = Str::kebab(class_basename($this));
+        $componentsConfig = config('wowlf.core.components');
+        $components = $componentsConfig['components'];
+        $componentsDir = $componentsConfig['components_dir'];
 
-        $config = config("form-components.components.{$alias}");
+        $currentComponent = $components[Str::kebab(class_basename($this))];
 
-        $framework = config("form-components.framework");
-
-        return str_replace('{framework}', $framework, $config['view']);
+        return $componentsDir . '.' . $currentComponent['view'];
     }
 
     /**

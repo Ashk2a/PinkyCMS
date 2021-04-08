@@ -5,18 +5,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Login</h1>
-
-                    <form action="{{ route('auth.login') }}" method="POST">
-                        @csrf
-                        <label>
-                            <input name="email" type="email" value="{{ old('email') }}" required>
-                        </label>
-                        <label>
-                            <input name="password" type="password" required>
-                        </label>
-                        <button type="submit">Login</button>
-                    </form>
+                    <h1>@lang('user::user.title.login')</h1>
+                    <x-form action="{{ route('auth.login') }}" method="POST">
+                        <x-form-input type="email" name="email" :label="@lang('user::user.email')" :required="true" />
+                        <x-form-input type="password" name="password" :label="@lang('user::user.password')" :required="true" />
+                        <x-form-submit>@lang('user::user.btn.login')</x-form-submit>
+                    </x-form>
                 </div>
             </div>
         </div>

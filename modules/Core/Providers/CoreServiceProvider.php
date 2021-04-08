@@ -3,6 +3,8 @@
 namespace Modules\Core\Providers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Modules\Core\Services\FormDataBinder;
@@ -25,9 +27,11 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->publishConfig('config');
         $this->publishConfig('core');
+        $this->publishConfig('components');
 
         $this->registerMiddleware();
         $this->registerModulesResourcesNamespaces();
+        $this->registerCustomizeBlade();
     }
 
     public function register(): void
@@ -61,6 +65,29 @@ class CoreServiceProvider extends ServiceProvider
             $this->registerViewNamespace($module);
             $this->registerLanguageNamespace($module);
         }
+    }
+
+    private function registerCustomizeBlade() {
+        // Form components
+        Blade::directive('bind', function ($bind) {
+            return "<?php app(" . FormDataBinder::class . ")->bind($bind); ?>";
+        });
+
+        Blade::directive('endbind', function () {
+            return "<?php app(" . FormDataBinder::class . ")->pop(); ?>";
+        });
+
+        Blade::directive('wire', function ($modifier) {
+            return "<?php app(" . FormDataBinder::class . ")->wire($modifier); ?>";
+        });
+
+        Blade::directive('endwire', function () {
+            return "<?php app(" . FormDataBinder::class . ")->endWire(); ?>";
+        });
+
+        Collection::make(config('wowlf.core.components.components'))->each(
+            fn ($component, $componentName) => Blade::component($componentName, $component['class'])
+        );
     }
 
     private function registerViewNamespace(Module $module)

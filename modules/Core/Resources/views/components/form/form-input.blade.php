@@ -1,5 +1,5 @@
 <div class="@if($type === 'hidden') d-none @else form-group @endif">
-    <x-form-label :label="$label" :for="$attributes->get('id') ?: $id()" />
+    <x-form-label :label="$label" :required="$required" :for="$attributes->get('id') ?: $id()" />
 
     <div class="input-group">
         @isset($prepend)
@@ -17,7 +17,14 @@
                 wire:model{!! $wireModifier() !!}="{{ $name }}"
             @else
                 name="{{ $name }}"
+
+               @if($value !== '')
                 value="{{ $value }}"
+               @endif
+            @endif
+
+            @if($required)
+                required
             @endif
 
             @if($label && !$attributes->get('id'))
@@ -32,11 +39,11 @@
                 </div>
             </div>
         @endisset
+
+        @if($hasErrorAndShow($name))
+            <x-form-errors :name="$name" />
+        @endif
     </div>
 
     {!! $help ?? null !!}
-
-    @if($hasErrorAndShow($name))
-        <x-form-errors :name="$name" />
-    @endif
 </div>

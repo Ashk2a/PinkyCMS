@@ -60,9 +60,15 @@ class AuthController extends BaseWebController
             DB::commit();
         } catch (\InvalidArgumentException $exception) {
             DB::rollBack();
+
+            return redirect()
+                ->route('auth.register')
+                ->with('error', trans('user::messages.registration.failed'));
         }
 
-        dd($user);
+        return redirect()
+            ->route('auth.login')
+            ->with('success', trans('user::messages.registration.success'));
     }
 
     public function postForgotPassword()

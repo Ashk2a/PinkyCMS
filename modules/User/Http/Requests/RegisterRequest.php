@@ -11,8 +11,8 @@ class RegisterRequest extends FormRequest
         return [
             'email' => 'required|unique:users,email',
             'username' => 'required|unique:users,username',
-            'password' => 'required|required_with:password_repeat|same:password_repeat',
-            'password_repeat' => 'required'
+            'password' => 'required|required_with:repeated_password|same:repeated_password',
+            'repeated_password' => 'required'
         ];
     }
 
