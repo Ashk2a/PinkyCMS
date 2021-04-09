@@ -10,7 +10,6 @@ class FormInput extends BaseFormComponent
     use HandlesValidationErrors;
     use HandlesDefaultAndOldValue;
 
-    public string $name;
     public string $label;
     public string $type;
     public mixed $value;

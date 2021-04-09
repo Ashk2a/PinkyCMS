@@ -79,7 +79,6 @@ class CoreServiceProvider extends ModuleServiceProvider
     {
         $this->publishConfig('config');
         $this->publishConfig('core');
-        $this->publishConfig('components');
 
         $this->registerMiddleware();
         $this->registerModulesResourcesNamespaces();

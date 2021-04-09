@@ -6,32 +6,14 @@ use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
+use Modules\Core\Components\BaseComponent;
 use Modules\Core\Services\FormDataBinder;
 
-abstract class BaseFormComponent extends Component
+abstract class BaseFormComponent extends BaseComponent
 {
-    /**
-     * Component identifier.
-     */
-    private ?string $id = null;
-
-    /**
-     * Component name.
-     */
-    private ?string $name = null;
-
-    /**
-     * {@inheritDoc}
-     */
-    public function render(): array|View|Htmlable|\Closure|string
+    public function getViewName(): string
     {
-        $componentsConfig = config('wowlf.core.components');
-        $components = $componentsConfig['components'];
-        $componentsDir = $componentsConfig['components_dir'];
-
-        $currentComponent = $components[Str::kebab(class_basename($this))];
-
-        return $componentsDir . '.' . $currentComponent['view'];
+        return 'form.' . Str::kebab(class_basename($this));
     }
 
     /**
@@ -67,40 +49,12 @@ abstract class BaseFormComponent extends Component
     }
 
     /**
-     * Generates an ID, once, for this component.
-     *
-     * @return string
-     */
-    public function id(): string
-    {
-        if ($this->id) {
-            return $this->id;
-        }
-
-        if ($this->name) {
-            return $this->id = $this->generateIdByName();
-        }
-
-        return $this->id = Str::random(4);
-    }
-
-    /**
-     * Generates an ID by the name attribute.
-     *
-     * @return string
-     */
-    protected function generateIdByName(): string
-    {
-        return "auto_id_" . $this->name;
-    }
-
-    /**
      * Converts a bracket-notation to a dotted-notation
      *
      * @param string $name
      * @return string
      */
-    protected static function convertBracketsToDots($name): string
+    public static function convertBracketsToDots(string $name): string
     {
         return str_replace(['[', ']'], ['.', ''], $name);
     }

@@ -75,4 +75,13 @@ class AuthController extends BaseWebController
     {
 
     }
+
+    public function getLogout(): RedirectResponse {
+
+        sentinel()->logout();
+
+        return redirect()
+            ->intended(route(config('wowlf.user.config.redirect_route_after_logout')))
+            ->with('success', trans('user::messages.logout.success'));
+    }
 }

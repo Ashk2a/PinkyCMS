@@ -15,5 +15,7 @@ $router->group(['prefix' => 'auth'], function (Router $router) {
     $router->get('register', [AuthController::class, 'getRegister'])->name('auth.register');
     $router->post('register', [AuthController::class, 'postRegister'])->name('auth.register');
     // Forgot password
-    $router->post('forgot', [AuthController::class, 'postForgotPassword']);
+    $router->post('forgot', [AuthController::class, 'postForgotPassword'])->name('auth.forgot_password');
+    // Logout
+    $router->get('logout', [AuthController::class, 'getLogout'])->name('auth.logout');
 });

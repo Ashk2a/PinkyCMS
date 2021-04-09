@@ -13,7 +13,6 @@ class FormSelect extends BaseFormComponent
     use HandlesValidationErrors;
     use HandlesBoundValues;
 
-    public string $name;
     public string $label;
     public array $options;
     public mixed $selectedKey;

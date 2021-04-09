@@ -6,7 +6,6 @@ use Illuminate\Support\Str;
 
 class FormErrors extends BaseFormComponent
 {
-    public string $name;
     public string $bag;
 
     /**

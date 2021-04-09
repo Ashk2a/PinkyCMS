@@ -12,7 +12,6 @@ class FormCheckbox extends BaseFormComponent
     use HandlesValidationErrors;
     use HandlesBoundValues;
 
-    public string $name;
     public string $label;
     public int $value;
     public bool $checked = false;

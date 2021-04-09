@@ -10,5 +10,8 @@ return [
     'registration' => [
         'success' => 'Your account has been successfully created.',
         'failed' => 'Can\'t process to your registration with these given information.'
+    ],
+    'logout' => [
+        'success' => 'You are now disconnected.'
     ]
 ];

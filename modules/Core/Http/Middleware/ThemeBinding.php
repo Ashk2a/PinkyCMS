@@ -8,11 +8,12 @@ use Shipu\Themevel\Middleware\RouteMiddleware;
 
 class ThemeBinding extends RouteMiddleware
 {
-    public function handle($request, Closure $next, $themeName = null)
+    public function handle($request, Closure $next, $themeName = null): mixed
     {
         $themeName = (null === $themeName) ? config('theme.active') : $themeName;
 
         if (null !== $themeName) {
+            $this->publishThemeHelpers($themeName);
             $this->publishThemeConfigs($themeName);
 
             foreach (modules()->getOrdered() as $module) {
@@ -33,7 +34,17 @@ class ThemeBinding extends RouteMiddleware
         return parent::handle($request, $next, $themeName);
     }
 
-    private function publishThemeConfigs(string $themeName) {
+    private function publishThemeHelpers(string $themeName): void
+    {
+        $themePath = themevel()->get($themeName)['path'];
+
+        // Way to get all function (functional)  helper of current theme
+        if (file_exists($themePath .  '/helpers.php')) {
+            require_once $themePath .  '/helpers.php';
+        }
+    }
+
+    private function publishThemeConfigs(string $themeName): void {
         $themeInfo = themevel()->get($themeName);
 
         $configPath = ($themeInfo['path'] ?? theme_path('')). '/config';
@@ -44,7 +55,7 @@ class ThemeBinding extends RouteMiddleware
             foreach ($configFiles as $configFile) {
                 if ($configFile->isFile() && $configFile->getExtension() === 'php') {
                     $fileName = $configFile->getFilenameWithoutExtension();
-                    config()->set('current_theme' . '.' . $fileName, require $configFile->getRealPath());
+                    config()->set('wowlf.theme' . '.' . $fileName, require $configFile->getRealPath());
                 }
             }
         }
