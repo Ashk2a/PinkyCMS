@@ -1,13 +1,6 @@
 <?php
 
 return [
-
-    // Self
-    'self' => [
-        'layout' => 'default', // blank, default
-        'rtl' => false, // true, false
-    ],
-
     // Base Layout
     'js' => [
         'breakpoints' => [
