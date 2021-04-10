@@ -29,6 +29,11 @@
     <link href="{{ themes('css/themes/layout/aside/dark.css') }}" rel="stylesheet" type="text/css"/>
     <!--end::Layout Themes-->
     <link rel="shortcut icon" href="{{ themes('media/logos/favicon.ico') }}"/>
+    <!--end::Clockwork-->
+    @if(env('CLOCKWORK_ENABLE'))
+        <script src="https://cdn.jsdelivr.net/gh/underground-works/clockwork-browser@1/dist/toolbar.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/underground-works/clockwork-browser@1/dist/metrics.js"></script>
+    @endif
 </head>
 <!--end::Head-->
 

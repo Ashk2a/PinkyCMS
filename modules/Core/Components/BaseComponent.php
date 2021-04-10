@@ -21,7 +21,10 @@ abstract class BaseComponent extends Component
      */
     public ?string $name = null;
 
-    abstract public function getViewName(): string;
+    public function getViewName(): string
+    {
+        return Str::kebab(class_basename($this));
+    }
 
     public function render(): View|Htmlable|string|\Closure
     {

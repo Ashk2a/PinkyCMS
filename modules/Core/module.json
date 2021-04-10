@@ -6,7 +6,8 @@
     "priority": 1,
     "active": 1,
     "providers": [
-        "Modules\\Core\\Providers\\CoreServiceProvider"
+        "Modules\\Core\\Providers\\CoreServiceProvider",
+        "Modules\\Core\\Providers\\RouteServiceProvider"
     ],
     "aliases": {},
     "files": [

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\User\Http\Controllers\Web;
+namespace Modules\User\Http\Controllers\Public;
 
 use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
 use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
@@ -62,12 +62,12 @@ class AuthController extends BaseWebController
             DB::rollBack();
 
             return redirect()
-                ->route('auth.register')
+                ->route('register')
                 ->with('error', trans('user::messages.registration.failed'));
         }
 
         return redirect()
-            ->route('auth.login')
+            ->route('login')
             ->with('success', trans('user::messages.registration.success'));
     }
 

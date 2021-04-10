@@ -41,7 +41,8 @@ class CoreServiceProvider extends ModuleServiceProvider
         ValidatePostSize::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
-        SubstituteBindings::class
+        SubstituteBindings::class,
+        \Clockwork\Support\Laravel\ClockworkMiddleware::class,
     ];
 
     protected array $routeMiddleware = [
@@ -79,6 +80,7 @@ class CoreServiceProvider extends ModuleServiceProvider
     {
         $this->publishConfig('config');
         $this->publishConfig('core');
+        $this->publishConfig('components');
 
         $this->registerMiddleware();
         $this->registerModulesResourcesNamespaces();
@@ -127,8 +129,17 @@ class CoreServiceProvider extends ModuleServiceProvider
             return "<?php app(" . FormDataBinder::class . ")->endWire(); ?>";
         });
 
-        Collection::make(config('wowlf.core.components.components'))->each(
-            fn($component, $componentName) => Blade::component($componentName, $component['class'])
+        Collection::make(config('wowlf.core.components.items'))->each(
+        /**
+         * @throws \ReflectionException
+         */
+            function ($componentNamespace) {
+                $reflection = new \ReflectionClass($componentNamespace);
+
+                $componentViewName = Str::kebab($reflection->getShortName());
+
+                Blade::component($componentNamespace, $componentViewName);
+            }
         );
     }
 

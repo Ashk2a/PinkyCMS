@@ -166,12 +166,7 @@ return [
          * Package Service Providers...
          */
         \Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
-        /*
-         * Application Service Providers...
-         */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
+        \Clockwork\Support\Laravel\ClockworkServiceProvider::class,
     ],
 
     /*

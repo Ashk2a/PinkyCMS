@@ -33,7 +33,7 @@
 									</span>
 								</span>
 							</a>
-							<a href="{{ route('auth.logout') }}" class="btn btn-sm btn-light-danger font-weight-bolder py-2 px-5">Log out</a>
+							<a href="{{ route('logout') }}" class="btn btn-sm btn-light-danger font-weight-bolder py-2 px-5">Log out</a>
 						</div>
 					</div>
 				</div>

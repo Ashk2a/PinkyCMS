@@ -2,10 +2,6 @@
 
 namespace Modules\Core\Components\Form;
 
-use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Contracts\View\View;
-use Illuminate\Support\Str;
-use Illuminate\View\Component;
 use Modules\Core\Components\BaseComponent;
 use Modules\Core\Services\FormDataBinder;
 
@@ -13,7 +9,7 @@ abstract class BaseFormComponent extends BaseComponent
 {
     public function getViewName(): string
     {
-        return 'form.' . Str::kebab(class_basename($this));
+        return 'form.' . parent::getViewName();
     }
 
     /**

@@ -803,8 +803,8 @@
                 </div>
             @else
                 <div class="topbar-item">
-                    <a href="{{ route('auth.login') }}" class="btn btn-light-primary font-weight-bolder btn-sm">@lang('user::user.btn.login')</a>
-                    <a href="{{ route('auth.register') }}" class="btn btn-primary font-weight-bolder btn-sm ml-3">@lang('user::user.btn.sign_up')</a>
+                    <a href="{{ route('login') }}" class="btn btn-light-primary font-weight-bolder btn-sm">@lang('user::user.btn.login')</a>
+                    <a href="{{ route('register') }}" class="btn btn-primary font-weight-bolder btn-sm ml-3">@lang('user::user.btn.sign_up')</a>
                 </div>
             @endif
         </div>
